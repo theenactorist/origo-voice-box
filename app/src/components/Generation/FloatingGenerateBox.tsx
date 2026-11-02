@@ -24,6 +24,7 @@ import { cn } from '@/lib/utils/cn';
 import { useGenerationStore } from '@/stores/generationStore';
 import { useStoryStore } from '@/stores/storyStore';
 import { useUIStore } from '@/stores/uiStore';
+import { DeliveryControls } from './DeliveryControls';
 import { EngineModelSelector } from './EngineModelSelector';
 import { ParalinguisticInput } from './ParalinguisticInput';
 
@@ -43,7 +44,7 @@ export function FloatingGenerateBox({
   const { data: selectedProfile } = useProfile(selectedProfileId || '');
   const { data: profiles } = useProfiles();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isInstructExpanded, setIsInstructExpanded] = useState(false);
+  const [isInstructExpanded, setIsInstructExpanded] = useState(true);
   const [selectedPresetId, setSelectedPresetId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -78,7 +79,7 @@ export function FloatingGenerateBox({
   // Calculate if track editor is visible (on stories route with items)
   const hasTrackEditor = isStoriesRoute && currentStory && currentStory.items.length > 0;
 
-  const { form, handleSubmit, isPending } = useGenerationForm({
+  const { form, handleSubmit, isPending, models, supportsInstruct } = useGenerationForm({
     onSuccess: async (generationId) => {
       setIsExpanded(false);
       // Defer the story add until TTS completes -- useGenerationProgress handles it
@@ -128,10 +129,16 @@ export function FloatingGenerateBox({
     };
   }, [isExpanded]);
 
-  // Set first voice as default if none selected
+  // Prefer the configured Ryan preset only when no saved voice selection exists.
   useEffect(() => {
     if (!selectedProfileId && profiles && profiles.length > 0) {
-      setSelectedProfileId(profiles[0].id);
+      const ryan = profiles.find(
+        (profile) =>
+          profile.voice_type === 'preset' &&
+          profile.preset_engine === 'qwen_custom_voice' &&
+          profile.preset_voice_id?.toLowerCase() === 'ryan',
+      );
+      setSelectedProfileId((ryan ?? profiles[0]).id);
     }
   }, [selectedProfileId, profiles, setSelectedProfileId]);
 
@@ -159,7 +166,11 @@ export function FloatingGenerateBox({
     // Auto-switch engine to match the profile
     const engine = selectedProfile?.default_engine ?? selectedProfile?.preset_engine;
     if (engine) {
+      const previousEngine = form.getValues('engine');
       form.setValue('engine', engine as EngineValue);
+      if (engine === 'qwen_custom_voice' && previousEngine !== engine) {
+        form.setValue('modelSize', '1.7B');
+      }
     } else if (selectedProfile && selectedProfile.voice_type !== 'preset') {
       // Cloned/designed profile with no default — ensure a compatible (non-preset) engine
       const currentEngine = form.getValues('engine');
@@ -418,13 +429,19 @@ export function FloatingGenerateBox({
                                         ? 'bg-accent text-accent-foreground border border-accent hover:bg-accent/90'
                                         : 'bg-card border border-border hover:bg-background/50',
                                     )}
-                                    aria-label={active ? t('generation.persona.ariaLabelActive') : t('generation.persona.ariaLabelInactive')}
+                                    aria-label={
+                                      active
+                                        ? t('generation.persona.ariaLabelActive')
+                                        : t('generation.persona.ariaLabelInactive')
+                                    }
                                     aria-pressed={active}
                                   >
                                     <Wand2 className="h-4 w-4" />
                                   </Button>
                                   <span className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded-md bg-popover px-3 py-1.5 text-xs text-popover-foreground border border-border opacity-0 transition-opacity group-hover:opacity-100 z-[9999]">
-                                    {active ? t('generation.persona.tooltipActive') : t('generation.persona.tooltipInactive')}
+                                    {active
+                                      ? t('generation.persona.tooltipActive')
+                                      : t('generation.persona.tooltipInactive')}
                                   </span>
                                 </div>
                               </FormControl>
@@ -436,9 +453,9 @@ export function FloatingGenerateBox({
                   )}
                 </AnimatePresence>
 
-                {/* Instruct toggle — only for Qwen CustomVoice, which actually honors the kwarg */}
+                {/* Only show delivery controls for a model that supports instructions. */}
                 <AnimatePresence>
-                  {isExpanded && form.watch('engine') === 'qwen_custom_voice' && (
+                  {isExpanded && supportsInstruct && (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -462,7 +479,8 @@ export function FloatingGenerateBox({
                               ? t('generation.instruct.hide')
                               : t('generation.instruct.show')
                           }
-                          aria-pressed={isInstructExpanded}
+                          aria-expanded={isInstructExpanded}
+                          aria-controls="generation-delivery-controls"
                         >
                           <SlidersHorizontal className="h-4 w-4" />
                         </Button>
@@ -505,37 +523,27 @@ export function FloatingGenerateBox({
               </div>
             </div>
 
-            {/* Additive instruct textarea — shown below main text when toggle is on and engine supports it */}
+            {/* Presets update the instruction only, retaining the text and selected voice. */}
             <AnimatePresence>
-              {isInstructExpanded && form.watch('engine') === 'qwen_custom_voice' && (
+              {isExpanded && isInstructExpanded && supportsInstruct && (
                 <motion.div
+                  id="generation-delivery-controls"
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.2, ease: 'easeOut' }}
                   className="overflow-hidden"
                 >
-                  <FormField
-                    control={form.control}
-                    name="instruct"
-                    render={({ field }) => (
-                      <FormItem className="mt-2">
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            placeholder={t('generation.instruct.placeholder')}
-                            className="resize-none bg-transparent border border-accent/20 focus-visible:ring-1 focus-visible:ring-accent/40 rounded-2xl text-sm placeholder:text-muted-foreground/60 w-full px-3 py-2"
-                            style={{ minHeight: '60px', maxHeight: '160px' }}
-                            maxLength={500}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-xs" />
-                      </FormItem>
-                    )}
-                  />
+                  <DeliveryControls form={form} />
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {isExpanded && watchedEngine === 'qwen_custom_voice' && !supportsInstruct && (
+              <p className="mt-2 px-3 text-xs text-muted-foreground">
+                {t('generation.instruct.unsupported')}
+              </p>
+            )}
 
             <AnimatePresence>
               <motion.div
@@ -565,7 +573,6 @@ export function FloatingGenerateBox({
                       </Select>
                     </div>
                   )}
-
 
                   <FormField
                     control={form.control}
@@ -597,7 +604,7 @@ export function FloatingGenerateBox({
                   />
 
                   <FormItem className="flex-1 space-y-0">
-                    <EngineModelSelector form={form} compact />
+                    <EngineModelSelector form={form} models={models} compact />
                   </FormItem>
 
                   <FormItem className="flex-1 space-y-0">

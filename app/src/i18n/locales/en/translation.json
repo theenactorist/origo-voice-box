@@ -695,6 +695,16 @@
       "selectFirst": "Select a voice profile first"
     },
     "instruct": {
+      "label": "Requested delivery",
+      "presetsLabel": "Delivery presets",
+      "description": "Presets change only the delivery instruction. The model may vary in how it expresses the requested style.",
+      "unsupported": "Delivery instructions require Qwen CustomVoice 1.7B.",
+      "presets": {
+        "neutral": "Neutral",
+        "fear": "Fear",
+        "happiness": "Happiness",
+        "confusion": "Confusion"
+      },
       "show": "Show delivery instructions",
       "hide": "Hide delivery instructions",
       "tooltip": "Delivery instructions (tone, emotion, pace)",

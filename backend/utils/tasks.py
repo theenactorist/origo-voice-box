@@ -23,6 +23,7 @@ class GenerationTask:
     profile_id: str
     text_preview: str  # First 50 chars of text
     started_at: datetime = field(default_factory=datetime.utcnow)
+    progress: Optional[dict] = None
 
 
 class TaskManager:
@@ -63,6 +64,15 @@ class TaskManager:
         """Mark a generation as complete."""
         if task_id in self._active_generations:
             del self._active_generations[task_id]
+
+    def update_generation_progress(self, task_id: str, progress: dict) -> None:
+        task = self._active_generations.get(task_id)
+        if task is not None:
+            task.progress = dict(progress)
+
+    def get_generation_progress(self, task_id: str) -> Optional[dict]:
+        task = self._active_generations.get(task_id)
+        return dict(task.progress) if task is not None and task.progress is not None else None
     
     def get_active_downloads(self) -> List[DownloadTask]:
         """Get all active downloads."""

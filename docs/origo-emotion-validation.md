@@ -1,5 +1,7 @@
 # Local instruction-controlled speech check
 
+This records the earlier standalone audition. See [0.5.1 close-out](origo-0.5.1-closeout.md) for the completed installed-app integration.
+
 Tested on 2026-11-02 using an Apple M2 Pro with 16 GiB RAM. This is a
 standalone, silent comparison runner, not an integration into the installed
 desktop app's engine selector. Perceptual emotion and naturalness remain

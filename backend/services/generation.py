@@ -17,6 +17,7 @@ Mode differences:
 from __future__ import annotations
 
 import asyncio
+import json
 import traceback
 from typing import Literal, Optional
 
@@ -26,7 +27,41 @@ from ..database import get_db
 from ..utils.tasks import get_task_manager
 
 
-async def run_generation(
+async def run_generation(**kwargs) -> None:
+    from ..backends import get_tts_backend_for_engine
+    from ..utils.inference import generation_progress_callback, model_session
+    from .task_queue import _force_fail_if_active
+
+    backend = get_tts_backend_for_engine(kwargs["engine"])
+    generation_id = kwargs["generation_id"]
+    loop = asyncio.get_running_loop()
+    manager = get_task_manager()
+    token = generation_progress_callback.set(
+        lambda progress: loop.call_soon_threadsafe(manager.update_generation_progress, generation_id, progress)
+    )
+    try:
+        async with model_session(backend):
+            await _run_generation(**kwargs)
+    except BaseException as exc:
+        cancelled = isinstance(exc, asyncio.CancelledError)
+        await _force_fail_if_active(generation_id, "Generation cancelled" if cancelled else str(exc))
+        _notify_speak_end(generation_id, status="cancelled" if cancelled else "failed")
+        raise
+    finally:
+        manager.complete_generation(generation_id)
+        generation_progress_callback.reset(token)
+
+
+async def generate_audio_sync(**kwargs) -> bytes:
+    from ..backends import get_tts_backend_for_engine
+    from ..utils.inference import model_session
+
+    backend = get_tts_backend_for_engine(kwargs["engine"])
+    async with model_session(backend):
+        return await _generate_audio_sync(**kwargs)
+
+
+async def _run_generation(
     *,
     generation_id: str,
     profile_id: str,
@@ -54,10 +89,10 @@ async def run_generation(
 
     task_manager = get_task_manager()
     bg_db = next(get_db())
+    tts_model = None
 
     try:
         tts_model = get_tts_backend_for_engine(engine)
-
         if not tts_model.is_loaded():
             await history.update_generation_status(generation_id, "loading_model", bg_db)
 
@@ -85,6 +120,11 @@ async def run_generation(
             gen_kwargs["crossfade_ms"] = crossfade_ms
 
         audio, sample_rate = await generate_chunked(tts_model, text, voice_prompt, **gen_kwargs)
+
+        inference_info = getattr(tts_model, "last_generation_info", None)
+        if inference_info:
+            audit_path = config.get_generations_dir() / f"{generation_id}.inference.json"
+            audit_path.write_text(json.dumps(inference_info, indent=2) + "\n")
 
         # --- Normalize (generate and regenerate always; retry skips) -----
         if normalize or mode == "regenerate":
@@ -242,7 +282,7 @@ def _save_retry(
     return config.to_storage_path(audio_path)
 
 
-async def generate_audio_sync(
+async def _generate_audio_sync(
     *,
     profile_id: str,
     text: str,

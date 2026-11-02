@@ -17,6 +17,13 @@ from ..utils.tasks import get_task_manager
 router = APIRouter()
 
 
+def _require_idle_models():
+    from ..utils.inference import any_backend_busy
+
+    if any_backend_busy():
+        raise HTTPException(status_code=409, detail="Wait for model work to finish or cancel generation first.")
+
+
 def _get_dir_size(path: Path) -> int:
     """Get total size of a directory in bytes."""
     total = 0
@@ -63,6 +70,7 @@ async def load_model(model_size: str = "1.7B"):
 @router.post("/models/unload")
 async def unload_model():
     """Unload the default Qwen TTS model to free memory."""
+    _require_idle_models()
     from ..services import tts
 
     try:
@@ -75,6 +83,7 @@ async def unload_model():
 @router.post("/models/{model_name}/unload")
 async def unload_model_by_name(model_name: str):
     """Unload a specific model from memory without deleting it from disk."""
+    _require_idle_models()
     from ..backends import get_model_config, unload_model_by_config
 
     config = get_model_config(model_name)
@@ -121,6 +130,7 @@ async def get_models_cache_dir():
 @router.post("/models/migrate")
 async def migrate_models(request: models.ModelMigrateRequest):
     """Move all downloaded models to a new directory with byte-level progress via SSE."""
+    _require_idle_models()
     from huggingface_hub import constants as hf_constants
 
     source = Path(hf_constants.HF_HUB_CACHE)
@@ -249,6 +259,7 @@ async def get_model_status():
             "display_name": cfg.display_name,
             "hf_repo_id": cfg.hf_repo_id,
             "model_size": cfg.model_size,
+            "supports_instruct": cfg.supports_instruct,
             "check_loaded": lambda c=cfg: check_model_loaded(c),
         }
         for cfg in registry_configs
@@ -359,6 +370,7 @@ async def get_model_status():
                     downloading=is_downloading,
                     size_mb=size_mb,
                     loaded=loaded,
+                    supports_instruct=config["supports_instruct"],
                 )
             )
         except Exception:
@@ -378,6 +390,7 @@ async def get_model_status():
                     downloading=is_downloading,
                     size_mb=None,
                     loaded=loaded,
+                    supports_instruct=config["supports_instruct"],
                 )
             )
 
@@ -444,6 +457,7 @@ async def cancel_model_download(request: models.ModelDownloadRequest):
 @router.delete("/models/{model_name}")
 async def delete_model(model_name: str):
     """Delete a downloaded model from the HuggingFace cache."""
+    _require_idle_models()
     from huggingface_hub import constants as hf_constants
     from ..backends import get_model_config, unload_model_by_config
 

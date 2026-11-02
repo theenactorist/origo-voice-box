@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import type { VoiceProfileResponse } from '@/lib/api/types';
+import type { ModelStatus, VoiceProfileResponse } from '@/lib/api/types';
 import { getLanguageOptionsForEngine } from '@/lib/constants/languages';
 import type { GenerationFormValues } from '@/lib/hooks/useGenerationForm';
 
@@ -31,7 +31,7 @@ const ENGINE_OPTIONS = [
 
 const ENGINE_DESCRIPTIONS: Record<string, string> = {
   qwen: 'Multi-language, two sizes',
-  qwen_custom_voice: '9 preset voices, instruct control',
+  qwen_custom_voice: '9 preset voices; delivery instructions with 1.7B',
   luxtts: 'Fast, English-focused',
   chatterbox: '23 languages, incl. Hebrew',
   chatterbox_turbo: 'English, [laugh] [cough] tags',
@@ -111,9 +111,15 @@ interface EngineModelSelectorProps {
   form: UseFormReturn<GenerationFormValues>;
   compact?: boolean;
   selectedProfile?: VoiceProfileResponse | null;
+  models?: ModelStatus[];
 }
 
-export function EngineModelSelector({ form, compact, selectedProfile }: EngineModelSelectorProps) {
+export function EngineModelSelector({
+  form,
+  compact,
+  selectedProfile,
+  models,
+}: EngineModelSelectorProps) {
   const engine = form.watch('engine') || 'qwen';
   const modelSize = form.watch('modelSize');
   const selectValue = getSelectValue(engine, modelSize);
@@ -142,7 +148,11 @@ export function EngineModelSelector({ form, compact, selectedProfile }: EngineMo
       <SelectContent>
         {availableOptions.map((opt) => (
           <SelectItem key={opt.value} value={opt.value} className={itemClass}>
-            {opt.label}
+            {opt.engine === 'qwen_custom_voice'
+              ? (models?.find(
+                  (model) => model.model_name === `qwen-custom-voice-${opt.value.split(':')[1]}`,
+                )?.display_name ?? opt.label)
+              : opt.label}
           </SelectItem>
         ))}
       </SelectContent>

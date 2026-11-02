@@ -21,7 +21,10 @@ import numpy as np
 DEFAULT_LLM_MAX_TOKENS = 512
 DEFAULT_LLM_TEMPERATURE = 0.7
 
-from ..utils.platform_detect import get_backend_type
+from ..utils.platform_detect import get_backend_type, is_apple_silicon
+
+QWEN_CUSTOM_VOICE_MLX_REPO = "mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-8bit"
+QWEN_CUSTOM_VOICE_MLX_REVISION = "41d3337e8b7f2843a75841595fc14e4b9a7a4b96"
 
 LANGUAGE_CODE_TO_NAME = {
     "zh": "chinese",
@@ -258,14 +261,15 @@ def _get_qwen_model_configs() -> list[ModelConfig]:
 
 def _get_qwen_custom_voice_configs() -> list[ModelConfig]:
     """Return Qwen CustomVoice model configs."""
+    use_mlx = is_apple_silicon()
     return [
         ModelConfig(
             model_name="qwen-custom-voice-1.7B",
-            display_name="Qwen CustomVoice 1.7B",
+            display_name="Qwen CustomVoice 1.7B · MLX 8-bit" if use_mlx else "Qwen CustomVoice 1.7B",
             engine="qwen_custom_voice",
-            hf_repo_id="Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+            hf_repo_id=QWEN_CUSTOM_VOICE_MLX_REPO if use_mlx else "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
             model_size="1.7B",
-            size_mb=3500,
+            size_mb=2940 if use_mlx else 3500,
             supports_instruct=True,
             languages=["zh", "en", "ja", "ko", "de", "fr", "ru", "pt", "es", "it"],
         ),
@@ -276,7 +280,7 @@ def _get_qwen_custom_voice_configs() -> list[ModelConfig]:
             hf_repo_id="Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice",
             model_size="0.6B",
             size_mb=1200,
-            supports_instruct=True,
+            supports_instruct=False,
             languages=["zh", "en", "ja", "ko", "de", "fr", "ru", "pt", "es", "it"],
         ),
     ]
@@ -705,12 +709,23 @@ def get_tts_backend_for_engine(engine: str) -> TTSBackend:
 
             backend = KokoroTTSBackend()
         elif engine == "qwen_custom_voice":
-            from .qwen_custom_voice_backend import QwenCustomVoiceBackend
+            # Do not silently fall back to CPU float32 if MLX is unavailable.
+            # The Apple Silicon adapter reports the error and preserves the
+            # separate legacy 0.6B path when that size is explicitly selected.
+            if is_apple_silicon():
+                from .mlx_custom_voice_backend import MLXQwenCustomVoiceBackend
 
-            backend = QwenCustomVoiceBackend()
+                backend = MLXQwenCustomVoiceBackend()
+            else:
+                from .qwen_custom_voice_backend import QwenCustomVoiceBackend
+
+                backend = QwenCustomVoiceBackend()
         else:
             raise ValueError(f"Unknown TTS engine: {engine}. Supported: {list(TTS_ENGINES.keys())}")
 
+        from ..utils.inference import manage_backend
+
+        backend = manage_backend(backend)
         _tts_backends[engine] = backend
         return backend
 
@@ -735,6 +750,10 @@ def get_stt_backend() -> STTBackend:
             from .pytorch_backend import PyTorchSTTBackend
 
             _stt_backend = PyTorchSTTBackend()
+
+        from ..utils.inference import manage_backend
+
+        _stt_backend = manage_backend(_stt_backend)
 
     return _stt_backend
 
@@ -768,6 +787,9 @@ def get_llm_backend_for_engine(engine: str) -> LLMBackend:
         else:
             raise ValueError(f"Unknown LLM engine: {engine}. Supported: {list(LLM_ENGINES.keys())}")
 
+        from ..utils.inference import manage_backend
+
+        backend = manage_backend(backend)
         _llm_backends[engine] = backend
         return backend
 

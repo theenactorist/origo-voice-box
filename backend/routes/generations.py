@@ -294,6 +294,7 @@ async def get_generation_status(generation_id: str, db: Session = Depends(get_db
                     # Agent-originated sources ("mcp", "rest") skip main-window
                     # autoplay — the floating pill plays those directly.
                     "source": gen.source,
+                    "progress": get_task_manager().get_generation_progress(generation_id),
                 }
                 yield f"data: {json.dumps(payload)}\n\n"
 
@@ -336,33 +337,36 @@ async def stream_speech(
     model_size = data.model_size or "1.7B"
 
     await ensure_model_cached_or_raise(engine, model_size)
-    await load_engine_model(engine, model_size)
+    from ..utils.inference import model_session
 
-    voice_prompt = await profiles.create_voice_prompt_for_profile(
-        data.profile_id,
-        db,
-        engine=engine,
-    )
+    async with model_session(tts_model):
+        await load_engine_model(engine, model_size)
 
-    from ..utils.chunked_tts import generate_chunked
+        voice_prompt = await profiles.create_voice_prompt_for_profile(
+            data.profile_id,
+            db,
+            engine=engine,
+        )
 
-    trim_fn = None
-    if engine_needs_trim(engine):
-        from ..utils.audio import trim_tts_output
+        from ..utils.chunked_tts import generate_chunked
 
-        trim_fn = trim_tts_output
+        trim_fn = None
+        if engine_needs_trim(engine):
+            from ..utils.audio import trim_tts_output
 
-    audio, sample_rate = await generate_chunked(
-        tts_model,
-        data.text,
-        voice_prompt,
-        language=data.language,
-        seed=data.seed,
-        instruct=data.instruct,
-        max_chunk_chars=data.max_chunk_chars,
-        crossfade_ms=data.crossfade_ms,
-        trim_fn=trim_fn,
-    )
+            trim_fn = trim_tts_output
+
+        audio, sample_rate = await generate_chunked(
+            tts_model,
+            data.text,
+            voice_prompt,
+            language=data.language,
+            seed=data.seed,
+            instruct=data.instruct,
+            max_chunk_chars=data.max_chunk_chars,
+            crossfade_ms=data.crossfade_ms,
+            trim_fn=trim_fn,
+        )
 
     effects_chain_config = None
     if data.effects_chain is not None:

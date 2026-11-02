@@ -1,10 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { useToast } from '@/components/ui/use-toast';
 import { apiClient } from '@/lib/api/client';
-import type { EffectConfig } from '@/lib/api/types';
+import type { EffectConfig, ModelStatus } from '@/lib/api/types';
+import { supportsDeliveryInstructions } from '@/lib/constants/delivery';
 import { LANGUAGE_CODES, type LanguageCode } from '@/lib/constants/languages';
 import { useGeneration } from '@/lib/hooks/useGeneration';
 import { useModelDownloadToast } from '@/lib/hooks/useModelDownloadToast';
@@ -72,6 +74,22 @@ export function useGenerationForm(options: UseGenerationFormOptions = {}) {
     },
   });
 
+  const { data: modelStatus } = useQuery({
+    queryKey: ['modelStatus'],
+    queryFn: () => apiClient.getModelStatus(),
+    staleTime: 30_000,
+  });
+  const engine = form.watch('engine');
+  const modelSize = form.watch('modelSize');
+  const selectedModel = modelStatus?.models.find(
+    (model) => model.model_name === `qwen-custom-voice-${modelSize ?? '1.7B'}`,
+  );
+  const supportsInstruct = supportsDeliveryInstructions(
+    engine,
+    modelSize,
+    selectedModel?.supports_instruct,
+  );
+
   async function handleSubmit(
     data: GenerationFormValues,
     selectedProfileId: string | null,
@@ -124,10 +142,14 @@ export function useGenerationForm(options: UseGenerationFormOptions = {}) {
                       ? 'Qwen TTS 1.7B'
                       : 'Qwen TTS 0.6B';
 
-      // Check if model needs downloading
+      let requestedModel: ModelStatus | undefined = modelStatus?.models.find(
+        (model) => model.model_name === modelName,
+      );
+      // Check if model needs downloading and refresh its capabilities before submission.
       try {
         const modelStatus = await apiClient.getModelStatus();
         const model = modelStatus.models.find((m) => m.model_name === modelName);
+        requestedModel = model;
 
         if (model && !model.downloaded) {
           setDownloadingModelName(modelName);
@@ -139,9 +161,11 @@ export function useGenerationForm(options: UseGenerationFormOptions = {}) {
 
       const hasModelSizes =
         engine === 'qwen' || engine === 'qwen_custom_voice' || engine === 'tada';
-      // Only Qwen CustomVoice actually honors the instruct kwarg at model level.
-      // Base Qwen3-TTS accepts the kwarg but ignores it.
-      const supportsInstruct = engine === 'qwen_custom_voice';
+      const supportsInstruct = supportsDeliveryInstructions(
+        engine,
+        data.modelSize,
+        requestedModel?.supports_instruct,
+      );
       const effectsChain = options.getEffectsChain?.();
       // This now returns immediately with status="generating"
       const result = await generation.mutateAsync({
@@ -189,5 +213,7 @@ export function useGenerationForm(options: UseGenerationFormOptions = {}) {
     form,
     handleSubmit,
     isPending: generation.isPending,
+    models: modelStatus?.models,
+    supportsInstruct,
   };
 }

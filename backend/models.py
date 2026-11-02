@@ -474,6 +474,7 @@ class ModelStatus(BaseModel):
     downloading: bool = False  # True if download is in progress
     size_mb: Optional[float] = None
     loaded: bool = False
+    supports_instruct: bool = False
 
 
 class ModelStatusListResponse(BaseModel):
