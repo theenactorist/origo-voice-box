@@ -219,7 +219,7 @@ function MainApp() {
           clearInterval(pollInterval);
           serverStartingRef.current = false;
           setStartupError(
-            'Could not connect to a Voicebox server within 2 minutes. ' +
+            'Could not connect to an Origo Voice Box server within 2 minutes. ' +
               'Please check that the server is running and try again.',
           );
         }, 120_000);
@@ -265,7 +265,7 @@ function MainApp() {
             </div>
             <img
               src={voiceboxLogo}
-              alt="Voicebox"
+              alt="Origo Voice Box"
               className="w-48 h-48 object-contain animate-fade-in-scale relative z-10"
             />
           </div>

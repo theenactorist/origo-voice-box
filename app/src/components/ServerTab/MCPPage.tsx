@@ -18,7 +18,7 @@ import { SettingRow, SettingSection } from './SettingRow';
 
 function getStdioShimCommand(): string {
   if (typeof navigator === 'undefined') {
-    return '/Applications/Voicebox.app/Contents/MacOS/voicebox-mcp';
+    return '/Applications/Origo Voice Box.app/Contents/MacOS/voicebox-mcp';
   }
 
   const platform = `${navigator.platform} ${navigator.userAgent}`.toLowerCase();
@@ -28,7 +28,7 @@ function getStdioShimCommand(): string {
   if (platform.includes('linux')) {
     return '/opt/voicebox/voicebox-mcp';
   }
-  return '/Applications/Voicebox.app/Contents/MacOS/voicebox-mcp';
+  return '/Applications/Origo Voice Box.app/Contents/MacOS/voicebox-mcp';
 }
 
 /**

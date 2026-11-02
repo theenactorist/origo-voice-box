@@ -135,13 +135,13 @@
       },
       "inputMonitoring": {
         "label": "入力監視の権限",
-        "ready": "macOS が Voicebox にグローバルショートカットの検出を許可しています。",
-        "missing": "macOS で Voicebox にグローバルショートカットの検出を許可する必要があります。",
+        "ready": "macOS が Origo Voice Box にグローバルショートカットの検出を許可しています。",
+        "missing": "macOS で Origo Voice Box にグローバルショートカットの検出を許可する必要があります。",
         "openSettings": "設定を開く"
       },
       "accessibility": {
         "label": "アクセシビリティの権限",
-        "ready": "Voicebox が他のアプリに文字起こしを貼り付けできます。",
+        "ready": "Origo Voice Box が他のアプリに文字起こしを貼り付けできます。",
         "missing": "フォーカス中のアプリに文字起こしを貼り付けるために必要です。",
         "openSettings": "設定を開く"
       }
@@ -149,19 +149,19 @@
     "permissions": {
       "accessibility": {
         "title": "自動貼り付けを有効にするためアクセシビリティの権限を付与してください",
-        "body": "他のアプリに文字起こしを貼り付けるには、Voicebox に <path>「システム設定」→「プライバシーとセキュリティ」→「アクセシビリティ」</path> の許可が必要です。許可がなくてもディクテーションはキャプチャタブに保存されます。",
+        "body": "他のアプリに文字起こしを貼り付けるには、Origo Voice Box に <path>「システム設定」→「プライバシーとセキュリティ」→「アクセシビリティ」</path> の許可が必要です。許可がなくてもディクテーションはキャプチャタブに保存されます。",
         "openSettings": "設定を開く",
         "recheck": "有効にしました",
         "rechecking": "確認中…",
-        "stillMissing": "まだ検出されません。macOS では権限を切り替えた後、Voicebox を終了して再起動する必要があります。"
+        "stillMissing": "まだ検出されません。macOS では権限を切り替えた後、Origo Voice Box を終了して再起動する必要があります。"
       },
       "inputMonitoring": {
         "title": "グローバルショートカットを有効にするため入力監視の権限を付与してください",
-        "body": "ディクテーションのコードを検出するには、Voicebox に <path>「システム設定」→「プライバシーとセキュリティ」→「入力監視」</path> の許可が必要です。トグルは有効ですが、許可されるまで macOS がキーイベントをブロックしています。",
+        "body": "ディクテーションのコードを検出するには、Origo Voice Box に <path>「システム設定」→「プライバシーとセキュリティ」→「入力監視」</path> の許可が必要です。トグルは有効ですが、許可されるまで macOS がキーイベントをブロックしています。",
         "openSettings": "設定を開く",
         "recheck": "有効にしました",
         "rechecking": "確認中…",
-        "stillMissing": "まだ検出されません。macOS では権限を切り替えた後、Voicebox を終了して再起動する必要があります。"
+        "stillMissing": "まだ検出されません。macOS では権限を切り替えた後、Origo Voice Box を終了して再起動する必要があります。"
       }
     }
   },
@@ -748,7 +748,7 @@
     },
     "language": {
       "label": "言語",
-      "description": "Voicebox の表示言語を選択します。"
+      "description": "Origo Voice Box の表示言語を選択します。"
     },
     "theme": {
       "label": "テーマ",
@@ -764,7 +764,7 @@
       "discord": { "title": "Discord に参加", "subtitle": "ヘルプやボイスの共有" },
       "serverUrl": {
         "title": "サーバー URL",
-        "description": "Voicebox バックエンドサーバーのアドレス。",
+        "description": "Origo Voice Box バックエンドサーバーのアドレス。",
         "invalidUrl": "有効な URL を入力してください",
         "updatedTitle": "サーバー URL を更新しました",
         "updatedDescription": "{{url}} に接続しました"
@@ -819,7 +819,7 @@
       },
       "api": {
         "title": "API アクセス",
-        "description": "<code>{{url}}</code> の REST API を通じて Voicebox をワークフローに統合できます",
+        "description": "<code>{{url}}</code> の REST API を通じて Origo Voice Box をワークフローに統合できます",
         "viewReference": "API リファレンス全文を表示",
         "endpoints": {
           "generate": "音声を生成",
@@ -908,7 +908,7 @@
         },
         "autoPaste": {
           "title": "フォーカス中のテキストフィールドに自動貼り付け",
-          "description": "他のアプリでテキスト入力欄がフォーカスされている場合、直接そこに貼り付けます。Voicebox はクリップボードの内容を一旦保存し、後で復元します。"
+          "description": "他のアプリでテキスト入力欄がフォーカスされている場合、直接そこに貼り付けます。Origo Voice Box はクリップボードの内容を一旦保存し、後で復元します。"
         }
       },
       "transcription": {
@@ -916,7 +916,7 @@
         "description": "キャプチャに使う音声認識モデルを選びます。",
         "model": {
           "title": "文字起こしモデル",
-          "description": "Whisper は Voicebox に同梱されており、すべてマシン上で動作します。",
+          "description": "Whisper は Origo Voice Box に同梱されており、すべてマシン上で動作します。",
           "base": "Whisper Base · 74M · {{tail}}",
           "small": "Whisper Small · 244M · {{tail}}",
           "medium": "Whisper Medium · 769M · {{tail}}",
@@ -992,7 +992,7 @@
       },
       "storage": {
         "title": "ストレージ",
-        "description": "キャプチャは Voicebox のデータディレクトリに、音声と文字起こしのペアファイルとして保存されます。",
+        "description": "キャプチャは Origo Voice Box のデータディレクトリに、音声と文字起こしのペアファイルとして保存されます。",
         "retention": {
           "title": "保持期間",
           "description": "キャプチャを保持する期間です。音声と文字起こしの両方に適用されます。",
@@ -1009,7 +1009,7 @@
       },
       "sidebar": {
         "aboutTitle": "キャプチャについて",
-        "aboutBody": "マシン上のどこからでもショートカットを押し続けて話すと、Voicebox があなたの声をテキストに変換します。クローンしたどのボイスでも再生でき、任意のアプリに貼り付けたり、コーディングエージェントに渡したりできます。",
+        "aboutBody": "マシン上のどこからでもショートカットを押し続けて話すと、Origo Voice Box があなたの声をテキストに変換します。クローンしたどのボイスでも再生でき、任意のアプリに貼り付けたり、コーディングエージェントに渡したりできます。",
         "differencesTitle": "ここが違います",
         "local": {
           "title": "完全にローカル。",
@@ -1025,14 +1025,14 @@
         },
         "windowsCaveat": {
           "title": "Windows での注意点",
-          "body": "Voicebox 自体や管理者として実行中のアプリにフォーカスがあるあいだは、ショートカットが反応しません。現在対応中です。"
+          "body": "Origo Voice Box 自体や管理者として実行中のアプリにフォーカスがあるあいだは、ショートカットが反応しません。現在対応中です。"
         }
       }
     },
     "mcp": {
       "install": {
         "title": "エージェントにインストール",
-        "description": "アプリが開いている間、Voicebox はローカルで MCP サーバーを公開します。以下のスニペットを、お使いのエージェントの MCP 設定に貼り付けてください。",
+        "description": "アプリが開いている間、Origo Voice Box はローカルで MCP サーバーを公開します。以下のスニペットを、お使いのエージェントの MCP 設定に貼り付けてください。",
         "http": {
           "title": "HTTP(推奨)",
           "description": "HTTP MCP に対応するクライアント向け — Claude Code、Cursor、Windsurf、VS Code。"
@@ -1073,7 +1073,7 @@
       },
       "sidebar": {
         "aboutTitle": "MCP について",
-        "aboutBody": "Model Context Protocol を使うと、Claude Code、Cursor、Windsurf などの AI コーディングエージェントから Voicebox のツールを呼び出せます。クローンしたボイスで発話したり、音声を文字起こししたり、キャプチャを参照したりできます。",
+        "aboutBody": "Model Context Protocol を使うと、Claude Code、Cursor、Windsurf などの AI コーディングエージェントから Origo Voice Box のツールを呼び出せます。クローンしたボイスで発話したり、音声を文字起こししたり、キャプチャを参照したりできます。",
         "toolsTitle": "利用可能なツール",
         "tools": {
           "speak": "ボイスプロファイルでテキストを発話します。",
@@ -1128,7 +1128,7 @@
         "switchCpu": "CPU への切り替えに失敗しました",
         "deleteCuda": "CUDA バックエンドの削除に失敗しました"
       },
-      "footer": "Voicebox はシステムで利用可能な最適な GPU を自動で検出し使用します。Apple Silicon Mac では、MLX バックエンドが Metal Performance Shaders(MPS)を介して Neural Engine と GPU 上でネイティブに動作し、追加のセットアップは不要です。NVIDIA GPU 搭載の Windows および Linux では、オプションの CUDA バックエンドをダウンロードしてハードウェアアクセラレーションによる推論が可能です。AMD ROCm、Intel XPU、DirectML も PyTorch を通じて利用可能な環境でサポートされます。GPU が検出されない場合、Voicebox は CPU にフォールバックし、すべてのエンジンはそのまま動作しますが速度は低下します。"
+      "footer": "Origo Voice Box はシステムで利用可能な最適な GPU を自動で検出し使用します。Apple Silicon Mac では、MLX バックエンドが Metal Performance Shaders(MPS)を介して Neural Engine と GPU 上でネイティブに動作し、追加のセットアップは不要です。NVIDIA GPU 搭載の Windows および Linux では、オプションの CUDA バックエンドをダウンロードしてハードウェアアクセラレーションによる推論が可能です。AMD ROCm、Intel XPU、DirectML も PyTorch を通じて利用可能な環境でサポートされます。GPU が検出されない場合、Origo Voice Box は CPU にフォールバックし、すべてのエンジンはそのまま動作しますが速度は低下します。"
     },
     "logs": {
       "title": "サーバーログ",
@@ -1146,7 +1146,7 @@
     },
     "about": {
       "tagline": "オープンソースの音声合成スタジオ。ボイスのクローン、音声生成、エフェクトの適用、音声対応アプリの構築まで、すべてローカル環境で実行できます。",
-      "createdBy": "作者",
+      "createdBy": "基盤となる Voicebox の作者",
       "buyCoffee": "コーヒーをおごる",
       "license": "<link>MIT</link> ライセンス"
     }

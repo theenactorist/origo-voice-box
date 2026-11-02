@@ -135,13 +135,13 @@
       },
       "inputMonitoring": {
         "label": "輸入監控權限",
-        "ready": "macOS 允許 Voicebox 偵測您的全域快捷鍵。",
-        "missing": "macOS 需要允許 Voicebox 偵測全域快捷鍵。",
+        "ready": "macOS 允許 Origo Voice Box 偵測您的全域快捷鍵。",
+        "missing": "macOS 需要允許 Origo Voice Box 偵測全域快捷鍵。",
         "openSettings": "開啟設定"
       },
       "accessibility": {
         "label": "輔助使用權限",
-        "ready": "Voicebox 可將轉錄文字貼到其他 App。",
+        "ready": "Origo Voice Box 可將轉錄文字貼到其他 App。",
         "missing": "需要此權限才能將轉錄文字貼到目前作用中的 App。",
         "openSettings": "開啟設定"
       }
@@ -149,19 +149,19 @@
     "permissions": {
       "accessibility": {
         "title": "授予輔助使用權限以啟用自動貼上",
-        "body": "Voicebox 需要 <path>系統設定 → 私隱與安全性 → 輔助使用</path> 才能將轉錄文字貼到其他 App。即使沒有此權限,口述內容仍會出現在「擷取」分頁。",
+        "body": "Origo Voice Box 需要 <path>系統設定 → 私隱與安全性 → 輔助使用</path> 才能將轉錄文字貼到其他 App。即使沒有此權限,口述內容仍會出現在「擷取」分頁。",
         "openSettings": "開啟設定",
         "recheck": "我已啟用",
         "rechecking": "檢查中…",
-        "stillMissing": "仍未偵測到。macOS 通常需要在切換權限後結束並重新開啟 Voicebox。"
+        "stillMissing": "仍未偵測到。macOS 通常需要在切換權限後結束並重新開啟 Origo Voice Box。"
       },
       "inputMonitoring": {
         "title": "授予輸入監控權限以啟用全域快捷鍵",
-        "body": "Voicebox 需要 <path>系統設定 → 私隱與安全性 → 輸入監控</path> 才能偵測您的口述組合鍵。功能已開啟,但 macOS 在您允許前會封鎖按鍵事件。",
+        "body": "Origo Voice Box 需要 <path>系統設定 → 私隱與安全性 → 輸入監控</path> 才能偵測您的口述組合鍵。功能已開啟,但 macOS 在您允許前會封鎖按鍵事件。",
         "openSettings": "開啟設定",
         "recheck": "我已啟用",
         "rechecking": "檢查中…",
-        "stillMissing": "仍未偵測到。macOS 通常需要在切換權限後結束並重新開啟 Voicebox。"
+        "stillMissing": "仍未偵測到。macOS 通常需要在切換權限後結束並重新開啟 Origo Voice Box。"
       }
     }
   },
@@ -748,7 +748,7 @@
     },
     "language": {
       "label": "語言",
-      "description": "選擇 Voicebox 的顯示語言。"
+      "description": "選擇 Origo Voice Box 的顯示語言。"
     },
     "theme": {
       "label": "佈景主題",
@@ -764,7 +764,7 @@
       "discord": { "title": "加入 Discord", "subtitle": "取得協助與分享聲音" },
       "serverUrl": {
         "title": "伺服器 URL",
-        "description": "Voicebox 後端伺服器的位址。",
+        "description": "Origo Voice Box 後端伺服器的位址。",
         "invalidUrl": "請輸入有效的 URL",
         "updatedTitle": "伺服器 URL 已更新",
         "updatedDescription": "已連線至 {{url}}"
@@ -819,7 +819,7 @@
       },
       "api": {
         "title": "API 存取",
-        "description": "透過 <code>{{url}}</code> 的 REST API 將 Voicebox 整合到您的工作流程中",
+        "description": "透過 <code>{{url}}</code> 的 REST API 將 Origo Voice Box 整合到您的工作流程中",
         "viewReference": "檢視完整的 API 參考",
         "endpoints": {
           "generate": "生成語音",
@@ -908,7 +908,7 @@
         },
         "autoPaste": {
           "title": "自動貼到目前作用中的文字欄位",
-          "description": "若另一個 App 中已聚焦於文字輸入,直接貼進去。Voicebox 會儲存並還原您原本剪貼簿上的內容。"
+          "description": "若另一個 App 中已聚焦於文字輸入,直接貼進去。Origo Voice Box 會儲存並還原您原本剪貼簿上的內容。"
         }
       },
       "transcription": {
@@ -916,7 +916,7 @@
         "description": "選擇用於擷取的語音轉文字模型。",
         "model": {
           "title": "轉錄模型",
-          "description": "Whisper 隨 Voicebox 提供,完全在您的電腦上執行。",
+          "description": "Whisper 隨 Origo Voice Box 提供,完全在您的電腦上執行。",
           "base": "Whisper Base · 74M · {{tail}}",
           "small": "Whisper Small · 244M · {{tail}}",
           "medium": "Whisper Medium · 769M · {{tail}}",
@@ -992,7 +992,7 @@
       },
       "storage": {
         "title": "儲存",
-        "description": "擷取會以成對的音訊與轉錄文字檔形式,儲存在您的 Voicebox 資料目錄中。",
+        "description": "擷取會以成對的音訊與轉錄文字檔形式,儲存在您的 Origo Voice Box 資料目錄中。",
         "retention": {
           "title": "保留期限",
           "description": "擷取保留的時間長度。同時適用於音訊與轉錄文字。",
@@ -1009,7 +1009,7 @@
       },
       "sidebar": {
         "aboutTitle": "關於擷取",
-        "aboutBody": "在電腦上任何位置按住快捷鍵說話,Voicebox 會將您的聲音轉成文字。可以用任何複製的聲音重播、貼到任何 App,或送進您的程式碼代理。",
+        "aboutBody": "在電腦上任何位置按住快捷鍵說話,Origo Voice Box 會將您的聲音轉成文字。可以用任何複製的聲音重播、貼到任何 App,或送進您的程式碼代理。",
         "differencesTitle": "有何不同",
         "local": {
           "title": "完全在本機。",
@@ -1025,14 +1025,14 @@
         },
         "windowsCaveat": {
           "title": "Windows 上的提醒",
-          "body": "當 Voicebox 本身或任何以系統管理員身分執行的應用程式取得焦點時,快捷鍵不會觸發。我們正在處理中。"
+          "body": "當 Origo Voice Box 本身或任何以系統管理員身分執行的應用程式取得焦點時,快捷鍵不會觸發。我們正在處理中。"
         }
       }
     },
     "mcp": {
       "install": {
         "title": "安裝到您的代理",
-        "description": "App 開啟時 Voicebox 會提供本地 MCP 伺服器。將以下其中一段程式碼貼到您的代理 MCP 設定中。",
+        "description": "App 開啟時 Origo Voice Box 會提供本地 MCP 伺服器。將以下其中一段程式碼貼到您的代理 MCP 設定中。",
         "http": {
           "title": "HTTP(建議)",
           "description": "適用於支援 HTTP MCP 的客戶端——Claude Code、Cursor、Windsurf、VS Code。"
@@ -1073,7 +1073,7 @@
       },
       "sidebar": {
         "aboutTitle": "關於 MCP",
-        "aboutBody": "Model Context Protocol 讓您的 AI 程式碼代理——Claude Code、Cursor、Windsurf——可以呼叫 Voicebox 工具。以複製的聲音說話、轉錄音訊、瀏覽擷取。",
+        "aboutBody": "Model Context Protocol 讓您的 AI 程式碼代理——Claude Code、Cursor、Windsurf——可以呼叫 Origo Voice Box 工具。以複製的聲音說話、轉錄音訊、瀏覽擷取。",
         "toolsTitle": "可用工具",
         "tools": {
           "speak": "以聲音檔案說出文字。",
@@ -1128,7 +1128,7 @@
         "switchCpu": "切換到 CPU 失敗",
         "deleteCuda": "刪除 CUDA 後端失敗"
       },
-      "footer": "Voicebox 會自動偵測並使用系統上可用的最佳 GPU。在 Apple Silicon Mac 上,MLX 後端透過 Metal Performance Shaders (MPS) 在神經引擎與 GPU 上原生執行,無需額外設定。在配備 NVIDIA GPU 的 Windows 與 Linux 上,可以下載選用的 CUDA 後端以取得硬體加速推論。AMD ROCm、Intel XPU 與 DirectML 也透過 PyTorch 獲得支援。未偵測到 GPU 時,Voicebox 會退回到 CPU——所有引擎仍可運作,只是速度較慢。"
+      "footer": "Origo Voice Box 會自動偵測並使用系統上可用的最佳 GPU。在 Apple Silicon Mac 上,MLX 後端透過 Metal Performance Shaders (MPS) 在神經引擎與 GPU 上原生執行,無需額外設定。在配備 NVIDIA GPU 的 Windows 與 Linux 上,可以下載選用的 CUDA 後端以取得硬體加速推論。AMD ROCm、Intel XPU 與 DirectML 也透過 PyTorch 獲得支援。未偵測到 GPU 時,Origo Voice Box 會退回到 CPU——所有引擎仍可運作,只是速度較慢。"
     },
     "logs": {
       "title": "伺服器日誌",
@@ -1146,7 +1146,7 @@
     },
     "about": {
       "tagline": "開源語音合成工作室。複製聲音、生成語音、套用效果、打造語音驅動的應用程式——全部在您的本機執行。",
-      "createdBy": "作者",
+      "createdBy": "基於 Voicebox，原作者",
       "buyCoffee": "請我喝杯咖啡",
       "license": "採用 <link>MIT</link> 授權"
     }

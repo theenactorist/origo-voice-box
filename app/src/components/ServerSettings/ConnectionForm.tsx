@@ -79,7 +79,9 @@ export function ConnectionForm() {
                   <FormControl>
                     <Input placeholder="http://127.0.0.1:17493" {...field} />
                   </FormControl>
-                  <FormDescription>Enter the URL of your voicebox backend server</FormDescription>
+                  <FormDescription>
+                    Enter the URL of your Origo Voice Box backend server
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

@@ -1,0 +1,13 @@
+{
+  "productName": "Origo Voice Box",
+  "version": "0.5.0",
+  "bundleIdentifier": "sh.voicebox.app",
+  "upstreamRepository": "https://github.com/jamiepine/voicebox",
+  "upstreamTag": "v0.5.0",
+  "upstreamCommit": "2bcb98d1a8b6fe05e15fbc1559e3085669e4035d",
+  "sourceRetrieval": "Unauthenticated HTTPS source archive; no upstream Git clone or fork",
+  "license": "MIT",
+  "buildScope": "Rebuilt frontend and Tauri shell; reused installed 0.5.0 server and MCP sidecars",
+  "signing": "Local ad-hoc signing; no upstream publisher signing key",
+  "storageMigration": "None; existing data and integration identifiers preserved"
+}

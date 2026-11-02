@@ -1,3 +1,25 @@
+# Origo Voice Box
+
+Personal local desktop build based on [Voicebox v0.5.0](https://github.com/jamiepine/voicebox/tree/v0.5.0), commit `2bcb98d1a8b6fe05e15fbc1559e3085669e4035d`. The original MIT license and attribution are retained.
+
+The desktop interface, About page, window and application names, permission descriptions, and localized product copy use **Origo Voice Box**. The stable `sh.voicebox.app` identifier, data directories, storage keys, executable names, API identifiers, and `.voicebox.zip` formats remain compatible with existing installations.
+
+## Local macOS build
+
+Install Bun 1.3.8, a compatible Rust toolchain, and Xcode. Run `scripts/build-origo-local.sh` with the path to an existing version 0.5.0 application bundle. The script reuses its server and MCP executables and rebuilds the frontend and native shell from the locked source dependencies. It creates a locally signed application; it does not install it or modify user data.
+
+```sh
+bash scripts/build-origo-local.sh "/Applications/Origo Voice Box.app"
+```
+
+The result is `tauri/src-tauri/target/release/bundle/macos/Origo Voice Box.app` unless `CARGO_TARGET_DIR` selects another build directory. Local builds do not generate upstream updater signatures. Installing a future upstream update can restore upstream branding.
+
+Close the existing app only when all generation, recording, transcription, and downloads are idle before launching the replacement. Two native copies share a backend port, so do not run them together. Preserve `~/Library/Application Support/sh.voicebox.app`, its WebKit preferences, and external model caches.
+
+## Upstream documentation
+
+The following is the original upstream documentation; its downloads and project links refer to Voicebox.
+
 <p align="center">
   <img src=".github/assets/icon-dark.webp" alt="Voicebox" width="120" height="120" />
 </p>

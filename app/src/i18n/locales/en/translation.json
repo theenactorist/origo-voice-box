@@ -135,13 +135,13 @@
       },
       "inputMonitoring": {
         "label": "Input Monitoring permission",
-        "ready": "macOS allows Voicebox to detect your global shortcut.",
-        "missing": "macOS needs to allow Voicebox to detect the global shortcut.",
+        "ready": "macOS allows Origo Voice Box to detect your global shortcut.",
+        "missing": "macOS needs to allow Origo Voice Box to detect the global shortcut.",
         "openSettings": "Open Settings"
       },
       "accessibility": {
         "label": "Accessibility permission",
-        "ready": "Voicebox can paste transcriptions into other apps.",
+        "ready": "Origo Voice Box can paste transcriptions into other apps.",
         "missing": "Required so transcriptions can paste into the focused app.",
         "openSettings": "Open Settings"
       }
@@ -149,19 +149,19 @@
     "permissions": {
       "accessibility": {
         "title": "Grant Accessibility permission to enable auto-paste",
-        "body": "Voicebox needs <path>System Settings → Privacy & Security → Accessibility</path> to paste transcriptions into other apps. Your dictation still lands in the Captures tab without it.",
+        "body": "Origo Voice Box needs <path>System Settings → Privacy & Security → Accessibility</path> to paste transcriptions into other apps. Your dictation still lands in the Captures tab without it.",
         "openSettings": "Open Settings",
         "recheck": "I've enabled it",
         "rechecking": "Checking…",
-        "stillMissing": "Still not detected. macOS usually requires quitting and reopening Voicebox after toggling the permission."
+        "stillMissing": "Still not detected. macOS usually requires quitting and reopening Origo Voice Box after toggling the permission."
       },
       "inputMonitoring": {
         "title": "Grant Input Monitoring to enable the global shortcut",
-        "body": "Voicebox needs <path>System Settings → Privacy & Security → Input Monitoring</path> to detect your dictation chord. The toggle is on, but macOS is blocking key events until you allow it.",
+        "body": "Origo Voice Box needs <path>System Settings → Privacy & Security → Input Monitoring</path> to detect your dictation chord. The toggle is on, but macOS is blocking key events until you allow it.",
         "openSettings": "Open Settings",
         "recheck": "I've enabled it",
         "rechecking": "Checking…",
-        "stillMissing": "Still not detected. macOS usually requires quitting and reopening Voicebox after toggling the permission."
+        "stillMissing": "Still not detected. macOS usually requires quitting and reopening Origo Voice Box after toggling the permission."
       }
     }
   },
@@ -748,7 +748,7 @@
     },
     "language": {
       "label": "Language",
-      "description": "Choose the display language for Voicebox."
+      "description": "Choose the display language for Origo Voice Box."
     },
     "theme": {
       "label": "Theme",
@@ -764,7 +764,7 @@
       "discord": { "title": "Join the Discord", "subtitle": "Get help & share voices" },
       "serverUrl": {
         "title": "Server URL",
-        "description": "The address of your voicebox backend server.",
+        "description": "The address of your Origo Voice Box backend server.",
         "invalidUrl": "Please enter a valid URL",
         "updatedTitle": "Server URL updated",
         "updatedDescription": "Connected to {{url}}"
@@ -819,7 +819,7 @@
       },
       "api": {
         "title": "API Access",
-        "description": "Integrate Voicebox into your workflow via the REST API at <code>{{url}}</code>",
+        "description": "Integrate Origo Voice Box into your workflow via the REST API at <code>{{url}}</code>",
         "viewReference": "View the full API reference",
         "endpoints": {
           "generate": "Generate speech",
@@ -908,7 +908,7 @@
         },
         "autoPaste": {
           "title": "Auto-paste into focused text field",
-          "description": "If a text input is focused in another app, paste directly into it. Voicebox saves and restores whatever was on your clipboard."
+          "description": "If a text input is focused in another app, paste directly into it. Origo Voice Box saves and restores whatever was on your clipboard."
         }
       },
       "transcription": {
@@ -916,7 +916,7 @@
         "description": "Pick which speech-to-text model runs on your captures.",
         "model": {
           "title": "Transcription model",
-          "description": "Whisper ships with Voicebox and runs entirely on your machine.",
+          "description": "Whisper ships with Origo Voice Box and runs entirely on your machine.",
           "base": "Whisper Base · 74M · {{tail}}",
           "small": "Whisper Small · 244M · {{tail}}",
           "medium": "Whisper Medium · 769M · {{tail}}",
@@ -992,7 +992,7 @@
       },
       "storage": {
         "title": "Storage",
-        "description": "Captures are saved as paired audio and transcript files in your Voicebox data directory.",
+        "description": "Captures are saved as paired audio and transcript files in your Origo Voice Box data directory.",
         "retention": {
           "title": "Retention",
           "description": "How long to keep captures. Applies to both audio and transcripts.",
@@ -1009,7 +1009,7 @@
       },
       "sidebar": {
         "aboutTitle": "About Captures",
-        "aboutBody": "Hold a shortcut anywhere on your machine, speak, and Voicebox turns your voice into text. Replay it in any cloned voice, paste it into any app, or pipe it into your coding agent.",
+        "aboutBody": "Hold a shortcut anywhere on your machine, speak, and Origo Voice Box turns your voice into text. Replay it in any cloned voice, paste it into any app, or pipe it into your coding agent.",
         "differencesTitle": "What's different",
         "local": {
           "title": "Fully local.",
@@ -1025,14 +1025,14 @@
         },
         "windowsCaveat": {
           "title": "Heads-up on Windows",
-          "body": "The shortcut won't fire while Voicebox itself or any app running as administrator is focused. Working on it."
+          "body": "The shortcut won't fire while Origo Voice Box itself or any app running as administrator is focused. Working on it."
         }
       }
     },
     "mcp": {
       "install": {
         "title": "Install into your agent",
-        "description": "Voicebox exposes a local MCP server whenever the app is open. Paste one of these snippets into your agent's MCP config.",
+        "description": "Origo Voice Box exposes a local MCP server whenever the app is open. Paste one of these snippets into your agent's MCP config.",
         "http": {
           "title": "HTTP (recommended)",
           "description": "For clients that speak HTTP MCP — Claude Code, Cursor, Windsurf, VS Code."
@@ -1073,7 +1073,7 @@
       },
       "sidebar": {
         "aboutTitle": "About MCP",
-        "aboutBody": "Model Context Protocol lets your AI coding agent — Claude Code, Cursor, Windsurf — call Voicebox tools. Speak in a cloned voice, transcribe audio, browse captures.",
+        "aboutBody": "Model Context Protocol lets your AI coding agent — Claude Code, Cursor, Windsurf — call Origo Voice Box tools. Speak in a cloned voice, transcribe audio, browse captures.",
         "toolsTitle": "Available tools",
         "tools": {
           "speak": "Speak text in a voice profile.",
@@ -1128,7 +1128,7 @@
         "switchCpu": "Failed to switch to CPU",
         "deleteCuda": "Failed to delete CUDA backend"
       },
-      "footer": "Voicebox automatically detects and uses the best available GPU on your system. On Apple Silicon Macs, the MLX backend runs natively on the Neural Engine and GPU via Metal Performance Shaders (MPS), with no additional setup required. On Windows and Linux with NVIDIA GPUs, you can download an optional CUDA backend for hardware-accelerated inference. AMD ROCm, Intel XPU, and DirectML are also supported where available through PyTorch. When no GPU is detected, Voicebox falls back to CPU — all engines still work, just slower."
+      "footer": "Origo Voice Box automatically detects and uses the best available GPU on your system. On Apple Silicon Macs, the MLX backend runs natively on the Neural Engine and GPU via Metal Performance Shaders (MPS), with no additional setup required. On Windows and Linux with NVIDIA GPUs, you can download an optional CUDA backend for hardware-accelerated inference. AMD ROCm, Intel XPU, and DirectML are also supported where available through PyTorch. When no GPU is detected, Origo Voice Box falls back to CPU — all engines still work, just slower."
     },
     "logs": {
       "title": "Server Logs",
@@ -1146,7 +1146,7 @@
     },
     "about": {
       "tagline": "The open-source voice synthesis studio. Clone voices, generate speech, apply effects, and build voice-powered apps — all running locally on your machine.",
-      "createdBy": "Created by",
+      "createdBy": "Based on Voicebox by",
       "buyCoffee": "Buy me a coffee",
       "license": "Licensed under <link>MIT</link>"
     }

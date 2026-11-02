@@ -130,7 +130,7 @@ export function useExportProfile() {
 
       await platform.filesystem.saveFile(filename, blob, [
         {
-          name: 'Voicebox Profile',
+          name: 'Origo Voice Box Profile',
           extensions: ['zip'],
         },
       ]);

@@ -135,13 +135,13 @@
       },
       "inputMonitoring": {
         "label": "「输入监控」权限",
-        "ready": "macOS 允许 Voicebox 检测您的全局快捷键。",
-        "missing": "macOS 需要允许 Voicebox 检测全局快捷键。",
+        "ready": "macOS 允许 Origo Voice Box 检测您的全局快捷键。",
+        "missing": "macOS 需要允许 Origo Voice Box 检测全局快捷键。",
         "openSettings": "打开设置"
       },
       "accessibility": {
         "label": "「辅助功能」权限",
-        "ready": "Voicebox 可以将转录粘贴到其他应用中。",
+        "ready": "Origo Voice Box 可以将转录粘贴到其他应用中。",
         "missing": "需要此权限,转录才能粘贴到当前焦点应用。",
         "openSettings": "打开设置"
       }
@@ -149,19 +149,19 @@
     "permissions": {
       "accessibility": {
         "title": "授予「辅助功能」权限以启用自动粘贴",
-        "body": "Voicebox 需要在 <path>系统设置 → 隐私与安全性 → 辅助功能</path> 中获得权限,才能将转录粘贴到其他应用。即使没有此权限,听写仍会保存到「捕获」标签页。",
+        "body": "Origo Voice Box 需要在 <path>系统设置 → 隐私与安全性 → 辅助功能</path> 中获得权限,才能将转录粘贴到其他应用。即使没有此权限,听写仍会保存到「捕获」标签页。",
         "openSettings": "打开设置",
         "recheck": "我已启用",
         "rechecking": "检查中…",
-        "stillMissing": "仍未检测到。切换权限后,macOS 通常需要退出并重新打开 Voicebox。"
+        "stillMissing": "仍未检测到。切换权限后,macOS 通常需要退出并重新打开 Origo Voice Box。"
       },
       "inputMonitoring": {
         "title": "授予「输入监控」权限以启用全局快捷键",
-        "body": "Voicebox 需要在 <path>系统设置 → 隐私与安全性 → 输入监控</path> 中获得权限,才能检测您的听写组合键。开关已开启,但在您允许之前 macOS 会拦截按键事件。",
+        "body": "Origo Voice Box 需要在 <path>系统设置 → 隐私与安全性 → 输入监控</path> 中获得权限,才能检测您的听写组合键。开关已开启,但在您允许之前 macOS 会拦截按键事件。",
         "openSettings": "打开设置",
         "recheck": "我已启用",
         "rechecking": "检查中…",
-        "stillMissing": "仍未检测到。切换权限后,macOS 通常需要退出并重新打开 Voicebox。"
+        "stillMissing": "仍未检测到。切换权限后,macOS 通常需要退出并重新打开 Origo Voice Box。"
       }
     }
   },
@@ -748,7 +748,7 @@
     },
     "language": {
       "label": "语言",
-      "description": "选择 Voicebox 的显示语言。"
+      "description": "选择 Origo Voice Box 的显示语言。"
     },
     "theme": {
       "label": "主题",
@@ -764,7 +764,7 @@
       "discord": { "title": "加入 Discord", "subtitle": "获取帮助 & 分享声音" },
       "serverUrl": {
         "title": "服务器 URL",
-        "description": "Voicebox 后端服务器的地址。",
+        "description": "Origo Voice Box 后端服务器的地址。",
         "invalidUrl": "请输入有效的 URL",
         "updatedTitle": "服务器 URL 已更新",
         "updatedDescription": "已连接到 {{url}}"
@@ -819,7 +819,7 @@
       },
       "api": {
         "title": "API 访问",
-        "description": "通过 <code>{{url}}</code> 的 REST API 将 Voicebox 集成到您的工作流程中",
+        "description": "通过 <code>{{url}}</code> 的 REST API 将 Origo Voice Box 集成到您的工作流程中",
         "viewReference": "查看完整的 API 参考",
         "endpoints": {
           "generate": "生成语音",
@@ -908,7 +908,7 @@
         },
         "autoPaste": {
           "title": "自动粘贴到当前焦点的文本字段",
-          "description": "如果其他应用中有焦点输入框,则直接粘贴进去。Voicebox 会保存并恢复您剪贴板原有的内容。"
+          "description": "如果其他应用中有焦点输入框,则直接粘贴进去。Origo Voice Box 会保存并恢复您剪贴板原有的内容。"
         }
       },
       "transcription": {
@@ -916,7 +916,7 @@
         "description": "选择捕获时使用哪个语音转文本模型。",
         "model": {
           "title": "转录模型",
-          "description": "Whisper 随 Voicebox 一同发布,完全在您的设备上运行。",
+          "description": "Whisper 随 Origo Voice Box 一同发布,完全在您的设备上运行。",
           "base": "Whisper Base · 74M · {{tail}}",
           "small": "Whisper Small · 244M · {{tail}}",
           "medium": "Whisper Medium · 769M · {{tail}}",
@@ -992,7 +992,7 @@
       },
       "storage": {
         "title": "存储",
-        "description": "捕获以配对的音频和转录文件保存在您的 Voicebox 数据目录中。",
+        "description": "捕获以配对的音频和转录文件保存在您的 Origo Voice Box 数据目录中。",
         "retention": {
           "title": "保留",
           "description": "捕获保留多久。同时适用于音频和转录。",
@@ -1009,7 +1009,7 @@
       },
       "sidebar": {
         "aboutTitle": "关于「捕获」",
-        "aboutBody": "在系统的任何位置按住快捷键说话,Voicebox 就会把您的声音转换成文本。可用任何克隆的声音回放、粘贴到任何应用,或导入到您的编程代理中。",
+        "aboutBody": "在系统的任何位置按住快捷键说话,Origo Voice Box 就会把您的声音转换成文本。可用任何克隆的声音回放、粘贴到任何应用,或导入到您的编程代理中。",
         "differencesTitle": "不同之处",
         "local": {
           "title": "完全本地。",
@@ -1025,14 +1025,14 @@
         },
         "windowsCaveat": {
           "title": "Windows 上的提示",
-          "body": "当 Voicebox 自身或任何以管理员身份运行的应用处于焦点时,快捷键不会触发。我们正在解决这个问题。"
+          "body": "当 Origo Voice Box 自身或任何以管理员身份运行的应用处于焦点时,快捷键不会触发。我们正在解决这个问题。"
         }
       }
     },
     "mcp": {
       "install": {
         "title": "安装到您的代理",
-        "description": "只要应用打开,Voicebox 就会暴露一个本地 MCP 服务器。将以下任一片段粘贴到您的代理 MCP 配置中。",
+        "description": "只要应用打开,Origo Voice Box 就会暴露一个本地 MCP 服务器。将以下任一片段粘贴到您的代理 MCP 配置中。",
         "http": {
           "title": "HTTP(推荐)",
           "description": "适用于支持 HTTP MCP 的客户端——Claude Code、Cursor、Windsurf、VS Code。"
@@ -1073,7 +1073,7 @@
       },
       "sidebar": {
         "aboutTitle": "关于 MCP",
-        "aboutBody": "Model Context Protocol 让您的 AI 编程代理——Claude Code、Cursor、Windsurf——可以调用 Voicebox 工具。以克隆的声音朗读、转录音频、浏览捕获。",
+        "aboutBody": "Model Context Protocol 让您的 AI 编程代理——Claude Code、Cursor、Windsurf——可以调用 Origo Voice Box 工具。以克隆的声音朗读、转录音频、浏览捕获。",
         "toolsTitle": "可用工具",
         "tools": {
           "speak": "用声音档案朗读文本。",
@@ -1128,7 +1128,7 @@
         "switchCpu": "切换到 CPU 失败",
         "deleteCuda": "删除 CUDA 后端失败"
       },
-      "footer": "Voicebox 会自动检测并使用系统上可用的最佳 GPU。在 Apple Silicon Mac 上,MLX 后端通过 Metal Performance Shaders (MPS) 在神经引擎和 GPU 上原生运行,无需额外设置。在配备 NVIDIA GPU 的 Windows 和 Linux 上,您可以下载可选的 CUDA 后端以获得硬件加速推理。AMD ROCm、Intel XPU 和 DirectML 也通过 PyTorch 获得支持。未检测到 GPU 时,Voicebox 会退回到 CPU——所有引擎仍可工作,只是速度较慢。"
+      "footer": "Origo Voice Box 会自动检测并使用系统上可用的最佳 GPU。在 Apple Silicon Mac 上,MLX 后端通过 Metal Performance Shaders (MPS) 在神经引擎和 GPU 上原生运行,无需额外设置。在配备 NVIDIA GPU 的 Windows 和 Linux 上,您可以下载可选的 CUDA 后端以获得硬件加速推理。AMD ROCm、Intel XPU 和 DirectML 也通过 PyTorch 获得支持。未检测到 GPU 时,Origo Voice Box 会退回到 CPU——所有引擎仍可工作,只是速度较慢。"
     },
     "logs": {
       "title": "服务器日志",
@@ -1146,7 +1146,7 @@
     },
     "about": {
       "tagline": "开源语音合成工作室。克隆声音、生成语音、应用效果、构建语音驱动的应用——全部在您的本地机器上运行。",
-      "createdBy": "创建者",
+      "createdBy": "基于 Voicebox，原作者",
       "buyCoffee": "请我喝杯咖啡",
       "license": "采用 <link>MIT</link> 协议"
     }
